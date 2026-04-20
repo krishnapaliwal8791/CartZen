@@ -309,6 +309,8 @@ app.listen(3000, () => {
 });
 
 app.post("/api/products", async (req, res) => {
+  console.log("BODY:", req.body); // 👈 ADD THIS
+
   try {
     const { title, price, image_url, description } = req.body;
 
@@ -317,11 +319,14 @@ app.post("/api/products", async (req, res) => {
       .insert([{ title, price, image_url, description }])
       .select();
 
+    console.log("DATA:", data);
+    console.log("ERROR:", error);
+
     if (error) throw error;
 
     res.json(data);
   } catch (err) {
-    console.error(err);
+    console.error("FINAL ERROR:", err);
     res.status(500).json({ error: "Failed to add product" });
   }
 });
