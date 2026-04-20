@@ -1,0 +1,9 @@
+/ecommerce
+│── index.html        → Homepage
+│── product.html      → Product detail page
+│── cart.html         → Cart page
+│── styles.css        → Global styling
+│── app.js            → App entry + init logic
+│── api.js            → API layer (backend calls)
+│── ui.js             → UI rendering (components)
+│── state.js          → Global state

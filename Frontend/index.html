@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shop</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Premium Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body onload="initHome()">
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">Shop</div>
+
+    <!-- Search -->
+    <input type="text" placeholder="Search products..." />
+
+    <!-- Actions -->
+    <div class="nav-actions">
+        <i class="ri-heart-line" onclick="location.href='wishlist.html'"></i>
+        <i class="ri-shopping-cart-line" onclick="location.href='cart.html'"></i>
+        <span onclick="alert('Login coming soon')">Login</span>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>Discover Premium Products</h1>
+</div>
+
+<!-- CATEGORIES -->
+<div class="categories">
+    <div class="cat"><i class="ri-t-shirt-line"></i>Fashion</div>
+    <div class="cat"><i class="ri-smartphone-line"></i>Electronics</div>
+    <div class="cat"><i class="ri-footprint-line"></i>Footwear</div>
+</div>
+
+<!-- PRODUCT GRID -->
+<div id="products" class="grid"></div>
+
+<script src="state.js"></script>
+<script src="api.js"></script>
+<script src="ui.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
