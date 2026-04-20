@@ -302,12 +302,6 @@ app.post("/api/verify-payment", (req, res) => {
   }
 });
 
-
-// START SERVER
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
-
 app.post("/api/products", async (req, res) => {
   console.log("BODY:", req.body); // 👈 ADD THIS
 
@@ -331,6 +325,10 @@ app.post("/api/products", async (req, res) => {
   }
 });
 
+
+
+
+
 app.delete("/api/products/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -347,3 +345,10 @@ app.delete("/api/products/:id", async (req, res) => {
     res.status(500).json({ error: "Delete failed" });
   }
 });
+
+
+// START SERVER
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
+});
+
