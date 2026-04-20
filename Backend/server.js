@@ -240,9 +240,16 @@ app.delete("/api/wishlist", async (req, res) => {
 
 const Razorpay = require("razorpay");
 
+const USE_LIVE = true; // change to false if needed
+
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
+  key_id: USE_LIVE 
+    ? process.env.RAZORPAY_KEY_ID 
+    : process.env.RAZORPAY_KEY_ID_TEST,
+
+  key_secret: USE_LIVE 
+    ? process.env.RAZORPAY_KEY_SECRET 
+    : process.env.RAZORPAY_KEY_SECRET_TEST,
 });
 
 app.post("/api/create-order", async (req, res) => {
