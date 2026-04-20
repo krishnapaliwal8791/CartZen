@@ -115,3 +115,35 @@ async function toggleWishlist(productId) {
   State.wishlist = await getWishlist(userId);
   renderProductGrid(State.products);
 }
+
+
+async function payNow() {
+  // Step 1: create order from backend
+  const res = await fetch("https://cartzen-production.up.railway.app/api/create-order", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ amount: 1 }) // ₹1 for demo
+  });
+
+  const order = await res.json();
+
+  // Step 2: open Razorpay checkout
+  const options = {
+    key: "rzp_live_SfqRGtlGHjtITY", // ⚠️ only KEY_ID here
+    amount: order.amount,
+    currency: "INR",
+    order_id: order.id,
+    name: "CartZen",
+    description: "Demo Payment",
+
+    handler: function (response) {
+      console.log("Payment Success:", response);
+      alert("Payment Successful!");
+    }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
+}

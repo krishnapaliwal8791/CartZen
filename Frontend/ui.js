@@ -101,7 +101,7 @@ function renderCart(cart) {
         totalContainer.innerHTML = `
             <div class="cart-summary">
                 <h2>Total: ₹${total}</h2>
-                <button class="checkout-btn">Checkout</button>
+                <button class="checkout-btn" onclick="payNow()">Checkout</button>
             </div>
         `;
     }
