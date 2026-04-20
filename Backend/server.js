@@ -308,3 +308,37 @@ app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
 });
 
+app.post("/api/products", async (req, res) => {
+  try {
+    const { title, price, image_url, description } = req.body;
+
+    const { data, error } = await supabase
+      .from("products")
+      .insert([{ title, price, image_url, description }])
+      .select();
+
+    if (error) throw error;
+
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to add product" });
+  }
+});
+
+app.delete("/api/products/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const { error } = await supabase
+      .from("products")
+      .delete()
+      .eq("id", id);
+
+    if (error) throw error;
+
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: "Delete failed" });
+  }
+});

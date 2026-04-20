@@ -34,7 +34,18 @@ const API = {
     async getCart() {
         // backend will handle
         return fetch("https://cartzen-production.up.railway.app/api/cart").then(res => res.json());
-    }
+    },
+
+    // Add new product (SELLER)
+async addProduct(product) {
+    return fetch("https://cartzen-production.up.railway.app/api/products", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(product)
+    }).then(res => res.json());
+}
 };
 
 async function addToWishlist(productId) {

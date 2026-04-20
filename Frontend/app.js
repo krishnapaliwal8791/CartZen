@@ -166,3 +166,19 @@ async function payNow() {
   const rzp = new Razorpay(options);
   rzp.open();
 }
+
+async function addProduct() {
+  const name = document.getElementById("name").value;
+  const price = document.getElementById("price").value;
+  const image = document.getElementById("image").value;
+  const description = document.getElementById("desc").value;
+
+  await API.addProduct({
+    title: name,
+    price: price,
+    image_url: image,
+    description: description
+  });
+
+  alert("Product added ✅");
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Seller Panel - CartZen</title>
+</head>
+
+<body>
+
+  <h1>Seller Panel</h1>
+
+  <h2>Add Product</h2>
+
+  <input id="name" placeholder="Product Name"><br><br>
+  <input id="price" placeholder="Price"><br><br>
+  <input id="image" placeholder="Image URL"><br><br>
+  <input id="desc" placeholder="Description"><br><br>
+
+  <button onclick="addProduct()">Add Product</button>
+
+  <hr>
+
+  <h2>All Products</h2>
+  <div id="products"></div>
+
+  <script>
+    const API = "https://cartzen-production.up.railway.app";
+
+    async function addProduct() {
+      const name = document.getElementById("name").value;
+      const price = document.getElementById("price").value;
+      const image = document.getElementById("image").value;
+      const description = document.getElementById("desc").value;
+
+      await fetch(`${API}/api/products`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title: name,
+          price: price,
+          image_url: image,
+          description: description
+        })
+      });
+
+      alert("Product added ✅");
+      loadProducts();
+    }
+
+    async function loadProducts() {
+      const res = await fetch(`${API}/api/products`);
+      const data = await res.json();
+
+      const container = document.getElementById("products");
+      container.innerHTML = "";
+
+      data.forEach(p => {
+        container.innerHTML += `
+          <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+            <h3>${p.title}</h3>
+            <p>₹${p.price}</p>
+            <img src="${p.image_url}" width="100"><br><br>
+            <button onclick="deleteProduct('${p.id}')">Delete</button>
+          </div>
+        `;
+      });
+    }
+
+    async function deleteProduct(id) {
+      await fetch(`${API}/api/products/${id}`, {
+        method: "DELETE"
+      });
+
+      loadProducts();
+    }
+
+    loadProducts();
+  </script>
+
+</body>
+</html>
