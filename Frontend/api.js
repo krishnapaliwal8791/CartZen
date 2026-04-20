@@ -4,18 +4,18 @@ const API = {
     // Fetch all products
     async getProducts() {
         // backend will handle
-        return fetch("http://localhost:3000/api/products").then(res => res.json());
+        return fetch("https://cartzen-production.up.railway.app/api/products").then(res => res.json());
     },
 
     // Fetch single product
     async getProduct(id) {
         // backend will handle
-        return fetch(`http://localhost:3000/api/products/${id}`).then(res => res.json());
+        return fetch(`https://cartzen-production.up.railway.app/api/products/${id}`).then(res => res.json());
     },
 
     // Add product to cart
     async addToCart(productId, qty = 1) {
-    const res = await fetch("http://localhost:3000/api/cart", {
+    const res = await fetch("https://cartzen-production.up.railway.app/api/cart", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -33,12 +33,12 @@ const API = {
     // Get cart items
     async getCart() {
         // backend will handle
-        return fetch("http://localhost:3000/api/cart").then(res => res.json());
+        return fetch("https://cartzen-production.up.railway.app/api/cart").then(res => res.json());
     }
 };
 
 async function addToWishlist(productId) {
-    await fetch("http://localhost:3000/api/wishlist", {
+    await fetch("https://cartzen-production.up.railway.app/api/wishlist", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -53,12 +53,12 @@ async function addToWishlist(productId) {
 }
 
 async function getWishlist(userId) {
-  const res = await fetch(`http://localhost:3000/api/wishlist?user_id=${userId}`);
+  const res = await fetch(`https://cartzen-production.up.railway.app/api/wishlist?user_id=${userId}`);
   return res.json();
 }
 
 async function removeFromWishlist(productId, userId) {
-  return fetch("http://localhost:3000/api/wishlist", {
+  return fetch("https://cartzen-production.up.railway.app/api/wishlist", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"

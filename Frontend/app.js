@@ -48,7 +48,7 @@ window.changeQty = async function(id, newQty) {
     return;
   }
 
-  await fetch(`http://localhost:3000/api/cart/${id}`, {
+  await fetch(`https://cartzen-production.up.railway.app/api/cart/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ quantity: newQty })
@@ -58,7 +58,7 @@ window.changeQty = async function(id, newQty) {
 };
 
 window.removeItem = async function(id) {
-  await fetch(`http://localhost:3000/api/cart/${id}`, {
+  await fetch(`https://cartzen-production.up.railway.app/api/cart/${id}`, {
     method: "DELETE"
   });
 
@@ -66,7 +66,7 @@ window.removeItem = async function(id) {
 };
 
 window.loadCart = async function() {
-  const res = await fetch("http://localhost:3000/api/cart");
+  const res = await fetch("https://cartzen-production.up.railway.app/api/cart");
   const data = await res.json();
 
   renderCart(data);
