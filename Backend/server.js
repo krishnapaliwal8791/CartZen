@@ -238,7 +238,32 @@ app.delete("/api/wishlist", async (req, res) => {
   res.json({ success: true });
 });
 
+const Razorpay = require("razorpay");
+
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
+
+app.post("/api/create-order", async (req, res) => {
+  try {
+    const { amount } = req.body;
+
+    const order = await razorpay.orders.create({
+      amount: amount * 100, // ₹ → paise
+      currency: "INR",
+      receipt: "order_" + Date.now(),
+    });
+
+    res.json(order);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Order failed" });
+  }
+});
+
 // START SERVER
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
 });
+
