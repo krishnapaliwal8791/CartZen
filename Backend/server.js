@@ -262,6 +262,40 @@ app.post("/api/create-order", async (req, res) => {
   }
 });
 
+
+const crypto = require("crypto");
+
+app.post("/api/verify-payment", (req, res) => {
+  try {
+    const {
+      razorpay_order_id,
+      razorpay_payment_id,
+      razorpay_signature
+    } = req.body;
+
+    // Step 1: create body string
+    const body = razorpay_order_id + "|" + razorpay_payment_id;
+
+    // Step 2: generate expected signature
+    const expectedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(body)
+      .digest("hex");
+
+    // Step 3: compare
+    if (expectedSignature === razorpay_signature) {
+      return res.json({ success: true });
+    } else {
+      return res.status(400).json({ success: false });
+    }
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Verification error" });
+  }
+});
+
+
 // START SERVER
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");

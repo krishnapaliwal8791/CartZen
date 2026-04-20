@@ -138,10 +138,29 @@ async function payNow() {
     name: "CartZen",
     description: "Demo Payment",
 
-    handler: function (response) {
-      console.log("Payment Success:", response);
-      alert("Payment Successful!");
-    }
+    handler: async function (response) {
+  console.log("Razorpay response:", response);
+
+  const verifyRes = await fetch("https://cartzen-production.up.railway.app/api/verify-payment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(response)
+  });
+
+  const data = await verifyRes.json();
+
+  if (data.success) {
+    alert("Payment Verified ✅");
+
+    // Optional: clear cart here
+    // Optional: redirect to success page
+
+  } else {
+    alert("Verification Failed ❌");
+  }
+}
   };
 
   const rzp = new Razorpay(options);
